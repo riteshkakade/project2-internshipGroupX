@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 const internSchema = new mongoose.Schema({
     name: {
@@ -20,11 +21,11 @@ const internSchema = new mongoose.Schema({
     },
     collegeId: {
         type: ObjectId,
-        ref :College,
+        ref :"College",
         trim:true
     },
     isDeleted: {
-        type:boolean,
+        type:Boolean,
         default: false
     }
 }, { timestamps: true });
