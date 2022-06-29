@@ -1,0 +1,25 @@
+{
+  "name": "project2-internshipgroupx",
+  "version": "1.0.0",
+  "description": "project2/internshipGroupX",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RinkiPradhan6210/project2-internshipGroupX.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RinkiPradhan6210/project2-internshipGroupX/issues"
+  },
+  "homepage": "https://github.com/RinkiPradhan6210/project2-internshipGroupX#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.4.1",
+    "nodemon": "^2.0.18"
+  }
+}
