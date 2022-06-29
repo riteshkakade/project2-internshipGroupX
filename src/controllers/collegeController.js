@@ -1,5 +1,5 @@
 const collegeModel=require("../models/collegeModel")
-//const internModel = require("../models/internModel")
+
 
 
 createCollege=async function(req,res){
