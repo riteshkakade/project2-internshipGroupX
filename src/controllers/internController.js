@@ -59,6 +59,7 @@ createIntern = async function (req, res) {
         }
 
         var regName = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+
         //check mobile is valid or invalid
         if (!regName.test(mobile)) {
             //console.log(mobile)
@@ -68,6 +69,7 @@ createIntern = async function (req, res) {
         //check if mobileNumber is present in Db or Not ? 
         let mobileNumber = await internModel.findOne({ mobile: mobile })
         if (mobileNumber) return res.status(400).send({ status: false, msg: "This mobileNumber is already present in DB" })
+
         //add the data in DB if all validation passed
 
         let college = await collegeModel.findOne({ name: collegeName })
@@ -78,7 +80,7 @@ createIntern = async function (req, res) {
 
         //1st we get collegeName and with the help of collegeName we get CollegeId
         let collegeId = college.id
-        let internsData1 = { name, email, mobile, collegeId }
+        let internsData1 = { name, email, mobile, collegeId, isDeleted }
         let data = await internModel.create(internsData1)
 
         return res.status(201).send({ status: true, data: data })
