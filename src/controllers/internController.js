@@ -1,21 +1,19 @@
 const internModel = require("../models/internModel")
 const collegeModel = require("../models/collegeModel")
 var validator = require("email-validator");
-//const collegeModel = require("../models/collegeModel");
-//const { findOne } = require("../models/collegeModel");
 
 createIntern=async function(req,res){
     try {
         let internsData = req.body;
-        let { name, email, mobile, collegeName, ...rest } = req.body
+        let { name, email, mobile, collegeName, isDeleted, ...rest } = req.body
         //chech body is empty or not
         if (!Object.keys(internsData).length) {
             return res.status(400).send({ status: false, msg: "Please Enter the Data in Request Body" });
         }
         //check if any unwanted attribute in req body is present or not ?
-        if (Object.keys(rest).length > 0) {
-            return res.status(400).send({ status: false, msg: "Please Enter the Valid Attribute Field " });
-        }
+         if (Object.keys(rest).length > 0) {
+             return res.status(400).send({ status: false, msg: "Please Enter the Valid Attribute Field " });
+         }
         //check the Name is present in req.body or not ?
         if (!name) {
             return res.status(400).send({ status: false, msg: "Missing name" });
@@ -29,12 +27,18 @@ createIntern=async function(req,res){
             return res.status(400).send({ status: false, msg: "Missing mobile" });
         
         }
+        //check collegeName is present or not
+        if (!collegeName) {
+            return res.status(400).send({ status: false, msg: "Missing collegeName" });
+        
+        }
         var regName = /^[a-zA-Z]+/;
         //check name is valid or invalid
         if (!regName.test(name)) {
-            //console.log(name)
+            console.log(name)
             return res.status(400).send({ status: false, msg: "name is invalid" });
         }
+        //console.log(name)
         //check email is valid or not
         if (!(validator.validate(email))) {
             return res.status(400).send({ status: false, msg: "Email Id is Invalid" });
@@ -48,11 +52,16 @@ createIntern=async function(req,res){
         //check mobile is valid or invalid
         if (!regName.test(mobile)) {
             //console.log(mobile)
-            return res.status(400).send({ status: false, msg: "name is invalid" });
+            return res.status(400).send({ status: false, msg: "mobile number invalid" });
         }
         //check if mobileNumber is present in Db or Not ? 
         let mobileNumber = await internModel.findOne({mobile:mobile})
         if (mobileNumber) return res.status(400).send({ status: false, msg: "This mobileNumber is already present in DB" })
+        //check if isDeleted is TRUE/FALSE ?
+    //     if (isDeleted === "" || (!(typeof isDeleted == "boolean"))) {
+    //         return res.status(400).send({ status: false, message: "isDeleted Must be TRUE OR FALSE" });
+    //   }
+
          
          //add the data in DB if all validation passed
 
@@ -64,8 +73,8 @@ createIntern=async function(req,res){
 
          return res.status(201).send({ status: true, data: data })
     }
-    catch (error) {
-        return res.status(500).send({ status: false, msg: error.message })
-    }
+     catch (error) {
+         return res.status(500).send({ status: false, msg: error.message })
+     }
 }
  module.exports.createIntern=createIntern
