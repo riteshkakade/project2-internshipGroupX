@@ -5,7 +5,7 @@ const internController =require("../controllers/internController")
 
 
 router.post("/functionup/interns",internController.createIntern )
-router.post("/functionup/colleges",collegeController.createCollege ) 
+router.post("/functionup/colleges",collegeController.createCollege ) //test complete
 
 router.get("/functionup/collegeDetails",collegeController.getCollegeDetail)
 
