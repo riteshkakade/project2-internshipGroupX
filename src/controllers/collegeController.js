@@ -56,6 +56,7 @@ createCollege = async function (req, res) {
         //load the data in database
         //console.log(data)
         let data = await collegeModel.create(collegesData)
+
         return res.status(201).send({ status: true, data: data })
 
     }
