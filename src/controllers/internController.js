@@ -66,6 +66,9 @@ createIntern=async function(req,res){
          //add the data in DB if all validation passed
 
          let college=await collegeModel.findOne({name:collegeName})
+         
+           if (!college)return res.status(404).send({ msg: "no such college is registered" });
+
          //1st we get collegeName and with the help of collegeName we get CollegeId
          let collegeId=college.id
          let internsData1={name,email,mobile,collegeId}
