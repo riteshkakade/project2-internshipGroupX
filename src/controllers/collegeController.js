@@ -35,8 +35,7 @@ createCollege = async function (req, res) {
 
         //console.log(name.split(" "))
         if (name.split(" ").length > 1) return res.status(400).send({ status: false, msg: "please provide valid abbrevetion" })
-
-        var regName = /^[a-zA-Z]+/;
+        //var regName = /^[a-zA-Z]+/;
         // check fullName is valid or not
         if (!regName.test(fullName)) {
             //console.log(fullName)
@@ -48,11 +47,6 @@ createCollege = async function (req, res) {
             return res.status(400).send({ status: false, msg: "please enter valid link" })
         }
 
-        //check if isDeleted is TRUE/FALSE ?
-        // if (isDeleted === "" || (!(typeof isDeleted == "boolean"))) {
-        //     return res.status(400).send({ status: false, message: "isDeleted Must be TRUE OR FALSE" });
-        // }
-
         //check the name is unique 
         let nameFlag = await collegeModel.findOne({ name: name })
         if (nameFlag) {
@@ -60,9 +54,10 @@ createCollege = async function (req, res) {
         }
 
         //load the data in database
+        //console.log(data)
         let data = await collegeModel.create(collegesData)
-        console.log(data)
         return res.status(201).send({ status: true, data: data })
+
     }
     catch (error) {
         return res.status(500).send({ status: false, msg: error.message })
@@ -91,7 +86,6 @@ const getCollegeDetail = async function (req, res) {
         if (!collegeDetail) {
             return res.status(404).send({ status: false, msg: `${query.collegeName} this college is not present .` })
         }
-
         //get the interns details through collegeId
         let intern = await internModel.find({ collegeId: collegeDetail._id, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 });
         //chech any intern present or not
