@@ -22,7 +22,7 @@ createCollege = async function (req, res) {
         }
 
         //check the logoLink is present in req.body or not ?
-        if (!logoLink) {
+          if (!logoLink) {
             return res.status(400).send({ status: false, message: "Missing logoLink" });
         }
 
