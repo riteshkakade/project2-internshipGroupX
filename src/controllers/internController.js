@@ -58,7 +58,8 @@ createIntern = async function (req, res) {
             return res.status(400).send({ status: false, message: "E-mail is Already Present in DB" })
         }
 
-        var regName = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+       // regex for indian mobile number
+        var regName =/^[6789]\d{9}$/;
 
         //check mobile is valid or invalid
         if (!regName.test(mobile)) {
